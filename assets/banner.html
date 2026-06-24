@@ -1,134 +1,62 @@
+<!-- Version 2.0 - Responsive -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orokpo Israel — Responsive Banner</title>
+  <title>Orokpo Israel — Banner</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       background: #0b0f19;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      padding: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      padding: 10px;
     }
-
-    /* THE BANNER CONTAINER */
     .banner {
       width: 100%;
-      max-width: 1200px; /* Limits size on big screens */
-      min-height: 400px;
+      max-width: 1200px;
+      min-height: 380px;
       background: #060A12;
       border: 1px solid rgba(0, 180, 216, 0.2);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 60px;
+      justify-content: space-around;
+      padding: 40px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+      flex-wrap: wrap; /* Allows wrapping on small screens */
     }
-
-    /* Glow Effect */
-    .banner::after {
-      content: '';
-      position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0, 180, 216, 0.05) 0%, transparent 70%);
-    }
-
-    /* LEFT SIDE: Identity */
-    .banner-content {
-      position: relative;
-      z-index: 2;
-      flex: 1;
-    }
-
-    .banner-name {
-      font-size: clamp(2rem, 8vw, 4rem); /* Adjusts size based on screen */
-      font-weight: 300;
-      color: #FFFFFF;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      line-height: 1.1;
-    }
-
-    .banner-title {
-      font-size: clamp(0.8rem, 3vw, 1.2rem);
-      color: #00B4D8;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      font-style: italic;
-      margin-top: 10px;
-    }
-
-    /* RIGHT SIDE: Monogram */
-    .banner-logo-mark {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: clamp(150px, 30vw, 280px);
-      height: clamp(150px, 30vw, 280px);
-      z-index: 2;
-    }
-
-    .ring {
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(0, 180, 216, 0.2);
-      border-radius: 50%;
-    }
-
-    .oi-text {
-      font-size: clamp(4rem, 15vw, 8rem);
-      line-height: 1;
-    }
-
-    .o-letter { color: #FFFFFF; font-weight: 300; }
-    .i-letter { color: #00B4D8; font-weight: 600; font-style: italic; margin-left: -0.05em;}
-
-    /* RESPONSIVE FIX FOR PORTRAIT (Vertical Screen) */
-    @media (max-width: 768px) {
-      .banner {
-        flex-direction: column; /* Stacks text on top of logo */
-        text-align: center;
-        padding: 40px 20px;
-        justify-content: center;
-        gap: 40px;
-      }
-      
-      .banner-logo-mark {
-        order: -1; /* Puts logo above name on mobile */
-      }
+    .banner-content { position: relative; z-index: 2; text-align: left; flex: 1; min-width: 300px; }
+    .banner-name { font-size: 3.5rem; color: white; letter-spacing: 0.15em; text-transform: uppercase; }
+    .banner-title { color: #00B4D8; letter-spacing: 0.3em; text-transform: uppercase; font-style: italic; }
+    .banner-logo { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; width: 250px; height: 250px; }
+    .oi-text { font-size: 7rem; color: white; }
+    .oi-text span { color: #00B4D8; font-style: italic; font-weight: 600; }
+    
+    /* MOBILE FIX */
+    @media (max-width: 700px) {
+      .banner { flex-direction: column; text-align: center; padding: 30px; height: auto; }
+      .banner-content { text-align: center; order: 2; min-width: 100%; }
+      .banner-name { font-size: 2.2rem; }
+      .banner-logo { order: 1; width: 180px; height: 180px; }
+      .oi-text { font-size: 5rem; }
     }
   </style>
 </head>
 <body>
-
   <div class="banner">
-    <!-- Identity Text -->
     <div class="banner-content">
       <h1 class="banner-name">Orokpo Israel</h1>
       <p class="banner-title">Web Developer & UI Designer</p>
     </div>
-
-    <!-- Identity Monogram -->
-    <div class="banner-logo-mark">
-      <div class="ring"></div>
-      <div class="oi-text">
-        <span class="o-letter">O</span><span class="i-letter">I</span>
-      </div>
+    <div class="banner-logo">
+      <div class="oi-text">O<span>I</span></div>
     </div>
   </div>
-
 </body>
 </html>
