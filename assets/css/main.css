@@ -881,3 +881,61 @@
     gap: 0;
   }
 }
+/* --- PORTO STATS --- */
+.porto-stats {
+  background: var(--color-surface);
+  padding: 3rem 1.5rem;
+  border-top: 1px solid rgba(0, 180, 216, 0.10);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.10);
+}
+
+.porto-stats__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.porto-stat {
+  text-align: center;
+  flex: 1;
+}
+
+.porto-stat__num {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-teal);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.porto-stat__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: var(--color-silver);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.porto-stats__line {
+  width: 1px;
+  height: 50px;
+  background: rgba(0, 180, 216, 0.20);
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .porto-stats__inner {
+    max-width: 1200px;
+    gap: 6rem;
+  }
+
+  .porto-stat__num {
+    font-size: 5rem;
+  }
+}
