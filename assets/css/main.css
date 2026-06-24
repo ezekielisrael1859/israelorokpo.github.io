@@ -1022,3 +1022,32 @@
     flex: 1;
   }
 }
+/* --- ABOUT VALUES --- */
+.about__values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 180, 216, 0.10);
+}
+
+.about__value {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.about__value-icon {
+  color: var(--color-teal);
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.about__value-text {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-silver);
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
