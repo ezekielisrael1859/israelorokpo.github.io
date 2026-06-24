@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orokpo Israel — Logo</title>
+  <title>Orokpo Israel — Responsive Logo</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -15,258 +14,112 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', serif;
+      padding: 30px;
+      color: white;
     }
 
     .logo-wrapper {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      justify-content: center;
+      gap: 50px;
+      transition: all 0.5s ease;
+      width: 100%;
+      max-width: 1000px;
     }
 
-    /* --- LOGO MARK --- */
-    .logo-mark {
+    /* --- THE MONOGRAM MARK --- */
+    .monogram-container {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: clamp(180px, 40vw, 300px);
+      height: clamp(180px, 40vw, 300px);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
-    .logo-mark__ring {
+    .ring {
       position: absolute;
       inset: 0;
-      border: 1px solid rgba(0, 180, 216, 0.25);
+      border: 1px solid rgba(0, 180, 216, 0.2);
       border-radius: 50%;
     }
 
-    .logo-mark__ring-inner {
-      position: absolute;
-      inset: 12px;
-      border: 1px solid rgba(0, 180, 216, 0.10);
-      border-radius: 50%;
-    }
-
-    .logo-mark__letters {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-mark__o {
-      font-size: 7rem;
-      font-weight: 300;
-      color: #FFFFFF;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      position: relative;
-      z-index: 2;
-    }
-
-    .logo-mark__i {
-      font-size: 7rem;
-      font-weight: 600;
-      color: #00B4D8;
-      font-style: italic;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      position: relative;
-      z-index: 1;
-      margin-left: -0.15em;
-      text-shadow: 0 0 40px rgba(0, 180, 216, 0.40);
-    }
-
-    .logo-mark__dot {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: #00B4D8;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.60);
-    }
-
-    /* --- FULL LOGO WITH NAME --- */
-    .logo-full {
-      text-align: center;
-    }
-
-    .logo-full__name {
-      font-size: 2rem;
-      font-weight: 300;
-      color: #FFFFFF;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-
-    .logo-full__title {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: #00B4D8;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      display: block;
-    }
-
-    .logo-full__divider {
-      width: 40px;
-      height: 1px;
-      background: #00B4D8;
-      margin: 0.75rem auto;
-      opacity: 0.5;
-    }
-
-    /* --- VARIATIONS --- */
-    .variations {
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(0, 180, 216, 0.10);
-      width: 100%;
-      justify-content: center;
-    }
-
-    .variation {
-      text-align: center;
-    }
-
-    .variation__label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.30);
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 1rem;
-    }
-
-    /* Dark variation */
-    .logo-mini {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-mini__mark {
-      font-size: 2rem;
-      font-weight: 300;
-      color: #FFFFFF;
+    .oi-text {
+      font-size: clamp(5rem, 12vw, 9rem);
       line-height: 1;
     }
 
-    .logo-mini__mark span {
-      color: #00B4D8;
-      font-style: italic;
-      font-weight: 600;
-    }
+    .oi-o { font-weight: 300; color: white; }
+    .oi-i { font-weight: 600; font-style: italic; color: #00B4D8; margin-left: -0.05em; }
 
-    .logo-mini__text {
+    /* --- THE IDENTITY TEXT --- */
+    .identity-text {
       text-align: left;
     }
 
-    .logo-mini__name {
-      display: block;
-      font-size: 0.875rem;
+    .name {
+      font-size: clamp(2rem, 6vw, 3.5rem);
       font-weight: 300;
-      color: #FFFFFF;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      line-height: 1;
+      line-height: 1.1;
     }
 
-    .logo-mini__title {
-      display: block;
-      font-size: 0.55rem;
+    .title {
+      font-size: clamp(0.7rem, 2vw, 1rem);
       color: #00B4D8;
-      letter-spacing: 0.20em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
       font-style: italic;
-      margin-top: 0.2rem;
+      margin-top: 15px;
     }
 
-    /* Light variation */
-    .logo-light {
-      background: #FFFFFF;
-      padding: 1rem 1.5rem;
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: #00B4D8;
+      margin-top: 20px;
+      opacity: 0.5;
     }
 
-    .logo-light .logo-mini__mark {
-      color: #060A12;
-    }
+    /* --- RESPONSIVE FIX (PORTRAIT MODE) --- */
+    @media (max-width: 800px) {
+      .logo-wrapper {
+        flex-direction: column; /* Stacks logo and name */
+        text-align: center;
+        gap: 30px;
+      }
+      
+      .identity-text {
+        text-align: center;
+      }
 
-    .logo-light .logo-mini__mark span {
-      color: #0096B4;
+      .divider {
+        margin: 20px auto; /* Centers divider */
+      }
     }
-
-    .logo-light .logo-mini__name {
-      color: #060A12;
-    }
-
-    .logo-light .logo-mini__title {
-      color: #0096B4;
-    }
-
   </style>
 </head>
 <body>
 
   <div class="logo-wrapper">
-
-    <!-- MAIN LOGO MARK -->
-    <div class="logo-mark">
-      <div class="logo-mark__ring"></div>
-      <div class="logo-mark__ring-inner"></div>
-      <div class="logo-mark__letters">
-        <span class="logo-mark__o">O</span>
-        <span class="logo-mark__i">I</span>
+    <!-- Monogram Part -->
+    <div class="monogram-container">
+      <div class="ring"></div>
+      <div class="oi-text">
+        <span class="oi-o">O</span><span class="oi-i">I</span>
       </div>
-      <div class="logo-mark__dot"></div>
     </div>
 
-    <!-- FULL LOGO WITH NAME -->
-    <div class="logo-full">
-      <span class="logo-full__name">Orokpo Israel</span>
-      <div class="logo-full__divider"></div>
-      <span class="logo-full__title">Web Developer & UI Designer</span>
+    <!-- Name and Title Part -->
+    <div class="identity-text">
+      <h1 class="name">Orokpo Israel</h1>
+      <p class="title">Web Developer & UI Designer</p>
+      <div class="divider"></div>
     </div>
-
-    <!-- VARIATIONS -->
-    <div class="variations">
-
-      <div class="variation">
-        <span class="variation__label">Horizontal</span>
-        <div class="logo-mini">
-          <div class="logo-mini__mark">O<span>I</span></div>
-          <div class="logo-mini__text">
-            <span class="logo-mini__name">Orokpo Israel</span>
-            <span class="logo-mini__title">Web Developer & UI Designer</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="variation">
-        <span class="variation__label">Light Version</span>
-        <div class="logo-mini logo-light">
-          <div class="logo-mini__mark">O<span>I</span></div>
-          <div class="logo-mini__text">
-            <span class="logo-mini__name">Orokpo Israel</span>
-            <span class="logo-mini__title">Web Developer & UI Designer</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 
 </body>
