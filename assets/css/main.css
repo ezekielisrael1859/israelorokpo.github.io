@@ -756,3 +756,58 @@
   }
 
 }
+/* --- SKILLS --- */
+.skills {
+  background: var(--color-page);
+  padding: 5rem 1.5rem;
+  border-top: 1px solid rgba(0, 180, 216, 0.10);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.10);
+  text-align: center;
+}
+
+.skills__inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.skill-badge {
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 180, 216, 0.12);
+  border-bottom: 2px solid var(--color-teal);
+  padding: 1.25rem 0.5rem;
+  text-align: center;
+}
+
+.skill-badge__icon {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--color-teal);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.skill-badge__name {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: var(--color-silver);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  .skills__inner {
+    max-width: 1200px;
+  }
+
+  .skills__grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
