@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orokpo Israel — Professional Banner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0b0f19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    /* THE BANNER CONTAINER (3:1 Aspect Ratio) */
+    .banner {
+      width: 1200px;
+      height: 400px;
+      background: #060A12;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 80px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    }
+
+    /* Background Design Element */
+    .banner::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* LEFT SIDE: Identity */
+    .banner-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .banner-name {
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: #FFFFFF;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 15px;
+    }
+
+    .banner-title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #00B4D8;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    /* RIGHT SIDE: Monogram */
+    .banner-logo-mark {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 280px;
+      height: 280px;
+      z-index: 2;
+    }
+
+    .ring {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 50%;
+    }
+
+    .ring-inner {
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(0, 180, 216, 0.08);
+      border-radius: 50%;
+    }
+
+    .oi-text {
+      font-size: 8rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .o-letter {
+      color: #FFFFFF;
+      font-weight: 300;
+    }
+
+    .i-letter {
+      color: #00B4D8;
+      font-weight: 600;
+      font-style: italic;
+      margin-left: -0.1em;
+    }
+
+    .dot {
+      position: absolute;
+      bottom: 35px;
+      width: 6px;
+      height: 6px;
+      background: #00B4D8;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.8);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    <!-- Identity Text -->
+    <div class="banner-content">
+      <h1 class="banner-name">Orokpo Israel</h1>
+      <p class="banner-title">Web Developer & UI Designer</p>
+    </div>
+
+    <!-- Identity Monogram -->
+    <div class="banner-logo-mark">
+      <div class="ring"></div>
+      <div class="ring-inner"></div>
+      <div class="oi-text">
+        <span class="o-letter">O</span><span class="i-letter">I</span>
+      </div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+</body>
+</html>
