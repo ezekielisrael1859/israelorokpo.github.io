@@ -1191,6 +1191,28 @@
   pointer-events: all;
 }
 
+.nav__links {
+  display: none;
+}
+
+.nav__burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav__burger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: #FFFFFF;
+  transition: all 280ms ease;
+}
+
 /* DESKTOP NAV */
 @media (min-width: 1024px) {
   .nav__burger {
