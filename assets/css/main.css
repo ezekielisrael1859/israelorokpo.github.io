@@ -31,10 +31,26 @@
 
 .nav__logo {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav__logo-o {
+  color: #FFFFFF;
+  font-weight: 300;
+}
+
+.nav__logo-i {
   color: var(--color-teal);
+  font-style: italic;
   font-weight: 600;
-  letter-spacing: 0.10em;
+  text-shadow: 0 0 20px rgba(0, 180, 216, 0.40);
+  margin-left: -0.05em;
 }
 
 .nav__links {
@@ -1174,6 +1190,8 @@
   padding: 1rem;
   text-align: center;
   border: 1px solid rgba(0, 180, 216, 0.25);
+  text-decoration: none;
+  width: 100%;
 }
 
 .mobile-menu__backdrop {
@@ -1215,11 +1233,29 @@
 
 /* DESKTOP NAV */
 @media (min-width: 1024px) {
+  .nav__inner {
+    max-width: 1200px;
+  }
+
   .nav__burger {
     display: none;
   }
 
   .nav__links {
     display: flex;
+    gap: 2rem;
+  }
+
+  .nav__links a {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--color-silver);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 280ms ease;
+  }
+
+  .nav__links a:hover {
+    color: var(--color-teal);
   }
 }
