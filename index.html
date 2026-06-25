@@ -19,17 +19,39 @@
 
 <body>
 
-  <!-- NAVIGATION -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#hero" class="nav__logo">OI</a>
-      <nav class="nav__links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+<!-- NAVIGATION -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__logo">OI</a>
+    <nav class="nav__links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <a href="https://wa.me/2348099224450" class="btn-hire">Hire Me</a>
+      <button class="nav__burger" id="menuBtn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu__close" id="closeBtn">✕</button>
+  <nav class="mobile-menu__links">
+    <a href="#work" class="mobile-menu__link">Work</a>
+    <a href="#about" class="mobile-menu__link">About</a>
+    <a href="#services" class="mobile-menu__link">Services</a>
+    <a href="#contact" class="mobile-menu__link">Contact</a>
+  </nav>
+  <a href="https://wa.me/2348099224450" class="mobile-menu__hire">Hire Me on WhatsApp</a>
+  <a href="mailto:ezekielisrael1859@gmail.com" class="mobile-menu__email">Send An Email</a>
+</div>
+<div class="mobile-menu__backdrop" id="menuBackdrop"></div>
 
   <!-- HERO -->
   <section class="hero" id="hero">

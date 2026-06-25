@@ -2,7 +2,31 @@
    OROKPO ISRAEL — PORTFOLIO JS
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {// --- MOBILE MENU ---
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuBackdrop = document.getElementById('menuBackdrop');
+
+  function openMenu() {
+    if (mobileMenu) mobileMenu.classList.add('is-open');
+    if (menuBackdrop) menuBackdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    if (mobileMenu) mobileMenu.classList.remove('is-open');
+    if (menuBackdrop) menuBackdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  if (menuBtn) menuBtn.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (menuBackdrop) menuBackdrop.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.mobile-menu__link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 
   // --- NAV SCROLL ---
   const nav = document.getElementById('nav');
