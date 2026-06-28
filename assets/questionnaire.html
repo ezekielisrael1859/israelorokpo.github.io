@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Questionnaire — Orokpo Israel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAFAFA;
+      color: #1A1A1A;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 3rem 3.5rem;
+    }
+
+    /* --- HEADER --- */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid #060A12;
+      margin-bottom: 2.5rem;
+    }
+
+    .header__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #060A12;
+      line-height: 1;
+    }
+
+    .header__logo span {
+      color: #00B4D8;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .header__info {
+      text-align: right;
+    }
+
+    .header__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #060A12;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .header__title {
+      font-size: 0.7rem;
+      color: #00B4D8;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .header__contact {
+      font-size: 0.7rem;
+      color: #666666;
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    /* --- COVER NOTE --- */
+    .cover {
+      background: #060A12;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+    }
+
+    .cover__title em {
+      color: #00B4D8;
+      font-style: italic;
+    }
+
+    .cover__divider {
+      width: 40px;
+      height: 1px;
+      background: #00B4D8;
+      margin: 1rem 0;
+      opacity: 0.6;
+    }
+
+    .cover__text {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+    }
+
+    .cover__text strong {
+      color: #00B4D8;
+    }
+
+    /* --- SECTION --- */
+    .section {
+      margin-bottom: 2.5rem;
+      page-break-inside: avoid;
+    }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .section__num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: #00B4D8;
+      font-weight: 300;
+      line-height: 1;
+      opacity: 0.5;
+    }
+
+    .section__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #060A12;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* --- QUESTION --- */
+    .question {
+      margin-bottom: 1.25rem;
+    }
+
+    .question__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #060A12;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .question__num {
+      color: #00B4D8;
+      margin-right: 0.35rem;
+    }
+
+    .question__line {
+      width: 100%;
+      height: 1px;
+      background: #E0E0E0;
+      margin-top: 0.75rem;
+    }
+
+    .question__lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .question__lines .question__line {
+      margin-top: 0;
+    }
+
+    .question__note {
+      font-size: 0.65rem;
+      color: #999999;
+      font-style: italic;
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* --- FOOTER --- */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #060A12;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-footer__left {
+      font-size: 0.7rem;
+      color: #999999;
+    }
+
+    .doc-footer__right {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: #060A12;
+      font-weight: 300;
+    }
+
+    .doc-footer__right span {
+      color: #00B4D8;
+      font-style: italic;
+    }
+
+    /* --- PRINT --- */
+    @media print {
+      body { background: #FFFFFF; }
+      .page { padding: 2rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header__logo">O<span>I</span></div>
+      <div class="header__info">
+        <span class="header__name">Orokpo Israel</span>
+        <span class="header__title">Web Developer & UI Designer</span>
+        <span class="header__contact">ezekielisrael1859@gmail.com</span>
+      </div>
+    </div>
+
+    <!-- COVER NOTE -->
+    <div class="cover">
+      <h1 class="cover__title">Client Project<br><em>Questionnaire</em></h1>
+      <div class="cover__divider"></div>
+      <p class="cover__text">
+        Thank you for choosing to work with me. This questionnaire is designed to help me understand your business, your vision and your goals deeply — so I can build you a website that truly represents the quality of your brand.<br><br>
+        <strong>Please answer every question as fully as possible.</strong> The more detail you provide, the better I can serve you. There are no wrong answers — I simply want to understand your world.<br><br>
+        Please return this completed document within <strong>3-5 working days.</strong>
+      </p>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">01</span>
+        <span class="section__title">Business Information</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">1.</span> What is the full name of your business?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">2.</span> What is your business tagline or motto?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">3.</span> How would you describe your business in 2-3 sentences?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">4.</span> When was your business founded?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">5.</span> Where are you located? (City, State, Country)</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">6.</span> What are your business hours?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">7.</span> What makes your business unique from competitors?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">02</span>
+        <span class="section__title">Products & Services</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">8.</span> What products or services do you offer? (list all)</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">9.</span> Do you offer custom orders? If yes, what kind?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">10.</span> Do you offer delivery? If yes, what areas do you cover?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">11.</span> What is your price range? (starting prices per product/service)</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">12.</span> What occasions do you specialize in?</span>
+        <span class="question__note">e.g. weddings, birthdays, corporate events, naming ceremonies</span>
+        <div class="question__line"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">03</span>
+        <span class="section__title">Target Audience</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">13.</span> Who are your ideal customers?</span>
+        <span class="question__note">e.g. individuals, corporate clients, event planners, families</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">14.</span> What age group are your customers mostly?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">15.</span> What income level do your customers fall into?</span>
+        <span class="question__note">Budget / Mid-range / Premium / Luxury</span>
+        <div class="question__line"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">04</span>
+        <span class="section__title">Brand Identity</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">16.</span> Do you have a logo already?</span>
+        <span class="question__note">Yes / No — If yes, please attach it to this document</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">17.</span> What colors represent your brand?</span>
+        <span class="question__note">If you have preferred colors or existing brand colors please list them</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">18.</span> What feeling do you want your website to give visitors?</span>
+        <span class="question__note">e.g. warm and homely, luxury and premium, fun and playful, professional and trustworthy</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">19.</span> Share links to 3 websites you love the look of</span>
+        <span class="question__note">These help me understand your visual taste</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">20.</span> Do you have professional photos of your products?</span>
+        <span class="question__note">Yes / No — If yes, approximately how many?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">21.</span> Do you have professional photos of yourself?</span>
+        <span class="question__note">Yes / No — These are needed for your portfolio/about section</span>
+        <div class="question__line"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">05</span>
+        <span class="section__title">Online Presence</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">22.</span> Instagram handle</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">23.</span> Facebook page name</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">24.</span> TikTok handle</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">25.</span> WhatsApp business number</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">26.</span> Business email address</span>
+        <div class="question__line"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">06</span>
+        <span class="section__title">Website Goals</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">27.</span> What is the main purpose of the website?</span>
+        <span class="question__note">e.g. showcase work, take orders, tell brand story, attract corporate clients</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">28.</span> Do you want customers to order directly on the website or contact you first?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">29.</span> Do you want a gallery of your work on the website?</span>
+        <span class="question__note">Yes / No</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">30.</span> Do you want customer testimonials on the website?</span>
+        <span class="question__note">Yes / No — If yes, do you have existing reviews we can use?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">31.</span> Are there any specific features you must have on the website?</span>
+        <span class="question__note">e.g. online payment, booking calendar, price list, WhatsApp chat button</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">07</span>
+        <span class="section__title">Portfolio & Personal Brand</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">32.</span> What is your full name?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">33.</span> How many years have you been baking professionally?</span>
+        <div class="question__line"></div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">34.</span> What are your biggest achievements or milestones?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">35.</span> Have you worked with any notable clients or events?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">36.</span> Do you have any certifications or professional training?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">37.</span> What do you want potential clients to feel when they see your portfolio?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">08</span>
+        <span class="section__title">Competitors & Inspiration</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">38.</span> Who are your main competitors?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">39.</span> What do you like about their online presence?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">40.</span> What do you NOT want your website to look like?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="section">
+      <div class="section__header">
+        <span class="section__num">09</span>
+        <span class="section__title">Additional Information</span>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">41.</span> Is there anything else you want on the website not covered above?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="question__label"><span class="question__num">42.</span> Any other information you think would help me serve you better?</span>
+        <div class="question__lines">
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+          <div class="question__line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="doc-footer">
+      <div class="doc-footer__left">
+        © 2026 Orokpo Israel · Web Developer & UI Designer<br>
+        ezekielisrael1859@gmail.com
+      </div>
+      <div class="doc-footer__right">O<span>I</span></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
