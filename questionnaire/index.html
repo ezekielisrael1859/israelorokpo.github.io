@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Questionnaire — Orokpo Israel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --page: #060A12;
+      --surface: #0A1020;
+      --surface-2: #0F1628;
+      --teal: #00B4D8;
+      --teal-dim: #0096B4;
+      --silver: #C8D0DC;
+      --cream: #E8EDF5;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--page);
+      color: var(--cream);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* --- HEADER --- */
+    .q-header {
+      background: rgba(6, 10, 18, 0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 180, 216, 0.15);
+      padding: 1.25rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .q-header__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .q-header__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .q-header__logo span {
+      color: var(--teal);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .q-header__title {
+      font-size: 0.65rem;
+      color: var(--teal);
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    /* --- HERO --- */
+    .q-hero {
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0, 180, 216, 0.10);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .q-hero__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .q-hero__label {
+      font-size: 0.7rem;
+      color: var(--teal);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .q-hero__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: var(--white);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .q-hero__title em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .q-hero__divider {
+      width: 40px;
+      height: 1px;
+      background: var(--teal);
+      margin: 1.25rem auto;
+      opacity: 0.5;
+    }
+
+    .q-hero__text {
+      font-size: 0.875rem;
+      color: var(--silver);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 1.5rem;
+      opacity: 0.85;
+    }
+
+    .q-hero__note {
+      display: inline-block;
+      background: rgba(0, 180, 216, 0.10);
+      border: 1px solid rgba(0, 180, 216, 0.25);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--teal);
+      letter-spacing: 0.10em;
+    }
+
+    /* --- PROGRESS --- */
+    .q-progress {
+      background: var(--page);
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(0, 180, 216, 0.10);
+      position: sticky;
+      top: 64px;
+      z-index: 99;
+    }
+
+    .q-progress__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .q-progress__bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(0, 180, 216, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .q-progress__fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 400ms ease;
+    }
+
+    .q-progress__text {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.40);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .q-progress__text span {
+      color: var(--teal);
+    }
+
+    /* --- FORM --- */
+    .q-form {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    /* --- SECTION --- */
+    .q-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(0, 180, 216, 0.08);
+    }
+
+    .q-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .q-section__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 180, 216, 0.15);
+    }
+
+    .q-section__num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--teal);
+      font-weight: 300;
+      opacity: 0.40;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .q-section__info {
+      flex: 1;
+    }
+
+    .q-section__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.375rem;
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .q-section__subtitle {
+      font-size: 0.7rem;
+      color: var(--teal);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      opacity: 0.70;
+    }
+
+    /* --- QUESTION --- */
+    .q-question {
+      margin-bottom: 1.75rem;
+    }
+
+    .q-question__label {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .q-question__num {
+      font-size: 0.65rem;
+      color: var(--teal);
+      letter-spacing: 0.10em;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .q-question__text {
+      font-size: 0.8rem;
+      color: var(--white);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .q-question__note {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.40);
+      font-style: italic;
+      margin-top: 0.2rem;
+      margin-left: 1.25rem;
+      display: block;
+    }
+
+    /* --- INPUTS --- */
+    .q-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(0, 180, 216, 0.15);
+      padding: 0.875rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: var(--white);
+      outline: none;
+      transition: border-color 280ms ease;
+      margin-top: 0.5rem;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .q-input::placeholder {
+      color: rgba(255,255,255,0.25);
+      font-style: italic;
+    }
+
+    .q-input:focus {
+      border-color: var(--teal);
+      background: var(--surface-2);
+    }
+
+    .q-textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .q-select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(0, 180, 216, 0.15);
+      padding: 0.875rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.70);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    .q-select:focus {
+      border-color: var(--teal);
+    }
+
+    .q-select option {
+      background: var(--surface);
+      color: var(--white);
+    }
+
+    /* CHECKBOX GROUP */
+    .q-checkboxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .q-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid rgba(0, 180, 216, 0.12);
+      background: var(--surface);
+      transition: all 280ms ease;
+    }
+
+    .q-checkbox input {
+      accent-color: var(--teal);
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .q-checkbox span {
+      font-size: 0.75rem;
+      color: var(--silver);
+    }
+
+    .q-checkbox:has(input:checked) {
+      border-color: var(--teal);
+      background: rgba(0, 180, 216, 0.08);
+    }
+
+    .q-checkbox:has(input:checked) span {
+      color: var(--white);
+    }
+
+    /* RADIO GROUP */
+    .q-radios {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .q-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.5rem 0.875rem;
+      border: 1px solid rgba(0, 180, 216, 0.12);
+      background: var(--surface);
+      transition: all 280ms ease;
+    }
+
+    .q-radio input {
+      accent-color: var(--teal);
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .q-radio span {
+      font-size: 0.75rem;
+      color: var(--silver);
+    }
+
+    .q-radio:has(input:checked) {
+      border-color: var(--teal);
+      background: rgba(0, 180, 216, 0.08);
+    }
+
+    .q-radio:has(input:checked) span {
+      color: var(--white);
+    }
+
+    /* OPTIONAL BADGE */
+    .q-optional {
+      display: inline-block;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.30);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* --- SUBMIT --- */
+    .q-submit {
+      background: var(--surface);
+      border-top: 1px solid rgba(0, 180, 216, 0.10);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .q-submit__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .q-submit__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--white);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .q-submit__title em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .q-submit__text {
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      opacity: 0.80;
+    }
+
+    .btn-generate {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--page);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      padding: 1.125rem 3rem;
+      border: none;
+      cursor: pointer;
+      transition: all 280ms ease;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .btn-generate:active {
+      background: var(--teal-dim);
+      transform: scale(0.98);
+    }
+
+    .btn-generate:disabled {
+      background: rgba(0, 180, 216, 0.30);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* --- FOOTER --- */
+    .q-footer {
+      background: var(--page);
+      border-top: 1px solid rgba(0, 180, 216, 0.10);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .q-footer__text {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.20);
+      letter-spacing: 0.10em;
+    }
+
+    /* --- SUCCESS --- */
+    .q-success {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 10, 18, 0.96);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .q-success.is-visible {
+      display: flex;
+    }
+
+    .q-success__icon {
+      font-size: 3rem;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .q-success__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--white);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .q-success__title em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .q-success__text {
+      font-size: 0.875rem;
+      color: var(--silver);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 400px;
+      opacity: 0.80;
+    }
+
+    .btn-download {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--page);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn-restart {
+      display: block;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.40);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: none;
+      border: none;
+      margin: 0.75rem auto 0;
+      text-decoration: underline;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 768px) {
+      .q-checkboxes {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="q-header">
+    <div class="q-header__inner">
+      <div class="q-header__logo">O<span>I</span></div>
+      <div class="q-header__title">Client Questionnaire</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="q-hero">
+    <div class="q-hero__inner">
+      <span class="q-hero__label">Orokpo Israel — Web Developer & UI Designer</span>
+      <h1 class="q-hero__title">Project<br><em>Questionnaire</em></h1>
+      <div class="q-hero__divider"></div>
+      <p class="q-hero__text">Welcome. This questionnaire is designed to help me understand your business, your vision and your goals — so I can build you a website that truly represents the quality of your brand. Please answer every question as fully as possible. The more detail you provide, the better I can serve you.</p>
+      <div class="q-hero__note">Estimated completion time: 15 — 20 minutes</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="q-progress">
+    <div class="q-progress__inner">
+      <div class="q-progress__bar">
+        <div class="q-progress__fill" id="progressFill"></div>
+      </div>
+      <div class="q-progress__text">
+        <span id="progressText">0% Complete</span>
+        <span><span id="answeredCount">0</span> of <span id="totalCount">0</span> answered</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <form class="q-form" id="questionnaireForm">
+
+    <!-- SECTION 1 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">01</span>
+        <div class="q-section__info">
+          <div class="q-section__title">About You & Your Business</div>
+          <div class="q-section__subtitle">Tell me who you are</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">01.</span>
+          <span class="q-question__text">What is your full name?</span>
+        </div>
+        <input class="q-input" type="text" name="q1" placeholder="Your full name" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">02.</span>
+          <span class="q-question__text">What is the full name of your business?</span>
+        </div>
+        <input class="q-input" type="text" name="q2" placeholder="Business name" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">03.</span>
+          <span class="q-question__text">What type of business do you run?</span>
+        </div>
+        <span class="q-question__note">e.g. bakery, restaurant, fashion brand, real estate, salon, tech company</span>
+        <input class="q-input" type="text" name="q3" placeholder="Type of business" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">04.</span>
+          <span class="q-question__text">What is your business tagline or motto? <span class="q-optional">Optional</span></span>
+        </div>
+        <input class="q-input" type="text" name="q4" placeholder="Your tagline if any" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">05.</span>
+          <span class="q-question__text">How would you describe your business in 2-3 sentences?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q5" placeholder="Tell me about your business..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">06.</span>
+          <span class="q-question__text">When was your business founded?</span>
+        </div>
+        <input class="q-input" type="text" name="q6" placeholder="Year founded e.g. 2020" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">07.</span>
+          <span class="q-question__text">Where are you located?</span>
+        </div>
+        <input class="q-input" type="text" name="q7" placeholder="City, State, Country" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">08.</span>
+          <span class="q-question__text">What are your business hours?</span>
+        </div>
+        <input class="q-input" type="text" name="q8" placeholder="e.g. Monday - Friday, 9AM - 6PM" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">09.</span>
+          <span class="q-question__text">What makes your business unique from competitors?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q9" placeholder="What sets you apart..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">02</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Products & Services</div>
+          <div class="q-section__subtitle">What you offer</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">10.</span>
+          <span class="q-question__text">What products or services do you offer?</span>
+        </div>
+        <span class="q-question__note">List all your products or services, one per line</span>
+        <textarea class="q-input q-textarea" name="q10" placeholder="List your products/services..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">11.</span>
+          <span class="q-question__text">Do you offer custom orders or bespoke services?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q11" value="Yes" /><span>Yes</span></label>
+          <label class="q-radio"><input type="radio" name="q11" value="No" /><span>No</span></label>
+          <label class="q-radio"><input type="radio" name="q11" value="Sometimes" /><span>Sometimes</span></label>
+        </div>
+        <input class="q-input" type="text" name="q11b" placeholder="If yes, what kind of custom orders?" style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">12.</span>
+          <span class="q-question__text">Do you offer delivery?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q12" value="Yes" /><span>Yes</span></label>
+          <label class="q-radio"><input type="radio" name="q12" value="No" /><span>No</span></label>
+          <label class="q-radio"><input type="radio" name="q12" value="Pickup only" /><span>Pickup Only</span></label>
+        </div>
+        <input class="q-input" type="text" name="q12b" placeholder="If yes, what areas do you cover?" style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">13.</span>
+          <span class="q-question__text">What is your price range?</span>
+        </div>
+        <span class="q-question__note">Give starting prices for your main products/services</span>
+        <textarea class="q-input q-textarea" name="q13" placeholder="e.g. Custom cakes start from ₦15,000..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">14.</span>
+          <span class="q-question__text">What occasions or events do you specialize in? <span class="q-optional">Optional</span></span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Weddings" /><span>Weddings</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Birthdays" /><span>Birthdays</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Corporate" /><span>Corporate</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Naming Ceremonies" /><span>Naming Ceremonies</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Graduations" /><span>Graduations</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q14" value="Everyday" /><span>Everyday Orders</span></label>
+        </div>
+        <input class="q-input" type="text" name="q14b" placeholder="Other occasions not listed..." style="margin-top:0.5rem;" />
+      </div>
+
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">03</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Target Audience</div>
+          <div class="q-section__subtitle">Who are your customers</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">15.</span>
+          <span class="q-question__text">Who are your ideal customers?</span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Individuals" /><span>Individuals</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Families" /><span>Families</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Corporate clients" /><span>Corporate Clients</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Event planners" /><span>Event Planners</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Other businesses" /><span>Other Businesses</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q15" value="Government" /><span>Government</span></label>
+        </div>
+        <input class="q-input" type="text" name="q15b" placeholder="Other customer types..." style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">16.</span>
+          <span class="q-question__text">What age group are your customers mostly?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q16" value="18-25" /><span>18 — 25</span></label>
+          <label class="q-radio"><input type="radio" name="q16" value="25-35" /><span>25 — 35</span></label>
+          <label class="q-radio"><input type="radio" name="q16" value="35-50" /><span>35 — 50</span></label>
+          <label class="q-radio"><input type="radio" name="q16" value="50+" /><span>50+</span></label>
+          <label class="q-radio"><input type="radio" name="q16" value="All ages" /><span>All Ages</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">17.</span>
+          <span class="q-question__text">What income level do your customers fall into?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q17" value="Budget" /><span>Budget</span></label>
+          <label class="q-radio"><input type="radio" name="q17" value="Mid-range" /><span>Mid-Range</span></label>
+          <label class="q-radio"><input type="radio" name="q17" value="Premium" /><span>Premium</span></label>
+          <label class="q-radio"><input type="radio" name="q17" value="Luxury" /><span>Luxury</span></label>
+          <label class="q-radio"><input type="radio" name="q17" value="Mixed" /><span>Mixed</span></label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">04</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Brand Identity & Design</div>
+          <div class="q-section__subtitle">How your brand looks and feels</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">18.</span>
+          <span class="q-question__text">Do you have a logo already?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q18" value="Yes — I will share it" /><span>Yes — I will share it</span></label>
+          <label class="q-radio"><input type="radio" name="q18" value="No — I need one" /><span>No — I need one</span></label>
+          <label class="q-radio"><input type="radio" name="q18" value="No — not needed" /><span>No — not needed</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">19.</span>
+          <span class="q-question__text">What colors represent your brand? <span class="q-optional">Optional</span></span>
+        </div>
+        <span class="q-question__note">List preferred colors or existing brand colors if any</span>
+        <input class="q-input" type="text" name="q19" placeholder="e.g. Pink, Gold, White or I have no preference" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">20.</span>
+          <span class="q-question__text">What feeling do you want your website to give visitors?</span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Warm and welcoming" /><span>Warm & Welcoming</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Luxury and premium" /><span>Luxury & Premium</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Fun and playful" /><span>Fun & Playful</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Professional and corporate" /><span>Professional & Corporate</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Minimal and clean" /><span>Minimal & Clean</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q20" value="Bold and dramatic" /><span>Bold & Dramatic</span></label>
+        </div>
+        <input class="q-input" type="text" name="q20b" placeholder="Describe in your own words..." style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">21.</span>
+          <span class="q-question__text">Share links to 3 websites you love the look of <span class="q-optional">Optional</span></span>
+        </div>
+        <span class="q-question__note">These help me understand your visual taste</span>
+        <input class="q-input" type="text" name="q21a" placeholder="Website 1 link" />
+        <input class="q-input" type="text" name="q21b" placeholder="Website 2 link" style="margin-top:0.5rem;" />
+        <input class="q-input" type="text" name="q21c" placeholder="Website 3 link" style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">22.</span>
+          <span class="q-question__text">Do you have professional photos of your products or work?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q22" value="Yes — many" /><span>Yes — Many</span></label>
+          <label class="q-radio"><input type="radio" name="q22" value="Yes — a few" /><span>Yes — A Few</span></label>
+          <label class="q-radio"><input type="radio" name="q22" value="No — need help" /><span>No — Need Help</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">23.</span>
+          <span class="q-question__text">Do you have professional photos of yourself?</span>
+        </div>
+        <span class="q-question__note">Needed for your about/portfolio section</span>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q23" value="Yes" /><span>Yes</span></label>
+          <label class="q-radio"><input type="radio" name="q23" value="No" /><span>No</span></label>
+          <label class="q-radio"><input type="radio" name="q23" value="I can take some" /><span>I Can Take Some</span></label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">05</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Online Presence</div>
+          <div class="q-section__subtitle">Your current digital footprint</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">24.</span>
+          <span class="q-question__text">Instagram handle <span class="q-optional">Optional</span></span>
+        </div>
+        <input class="q-input" type="text" name="q24" placeholder="@yourusername" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">25.</span>
+          <span class="q-question__text">Facebook page name <span class="q-optional">Optional</span></span>
+        </div>
+        <input class="q-input" type="text" name="q25" placeholder="Your Facebook page" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">26.</span>
+          <span class="q-question__text">TikTok handle <span class="q-optional">Optional</span></span>
+        </div>
+        <input class="q-input" type="text" name="q26" placeholder="@yourusername" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">27.</span>
+          <span class="q-question__text">WhatsApp business number</span>
+        </div>
+        <input class="q-input" type="tel" name="q27" placeholder="e.g. 08012345678" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">28.</span>
+          <span class="q-question__text">Business email address</span>
+        </div>
+        <input class="q-input" type="email" name="q28" placeholder="youremail@example.com" />
+      </div>
+
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">06</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Website Goals & Features</div>
+          <div class="q-section__subtitle">What you need the website to do</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">29.</span>
+          <span class="q-question__text">What is the main purpose of the website?</span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Showcase my work" /><span>Showcase My Work</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Take orders" /><span>Take Orders</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Tell my brand story" /><span>Tell Brand Story</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Attract corporate clients" /><span>Attract Corporate Clients</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Booking/appointments" /><span>Bookings & Appointments</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q29" value="Sell products online" /><span>Sell Products Online</span></label>
+        </div>
+        <input class="q-input" type="text" name="q29b" placeholder="Other goals..." style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">30.</span>
+          <span class="q-question__text">How do you want customers to reach you from the website?</span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="WhatsApp" /><span>WhatsApp</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="Email" /><span>Email</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="Phone call" /><span>Phone Call</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="Online booking form" /><span>Booking Form</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="Order form" /><span>Order Form</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q30" value="Social media" /><span>Social Media</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">31.</span>
+          <span class="q-question__text">What specific features must the website have?</span>
+        </div>
+        <div class="q-checkboxes">
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Photo gallery" /><span>Photo Gallery</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Online payment" /><span>Online Payment</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Booking calendar" /><span>Booking Calendar</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Price list" /><span>Price List</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Testimonials" /><span>Testimonials</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="FAQ section" /><span>FAQ Section</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="WhatsApp chat button" /><span>WhatsApp Button</span></label>
+          <label class="q-checkbox"><input type="checkbox" name="q31" value="Blog" /><span>Blog</span></label>
+        </div>
+        <input class="q-input" type="text" name="q31b" placeholder="Other features you need..." style="margin-top:0.5rem;" />
+      </div>
+
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">07</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Content & Media</div>
+          <div class="q-section__subtitle">What you already have</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">32.</span>
+          <span class="q-question__text">Do you have an existing website?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q32" value="Yes" /><span>Yes</span></label>
+          <label class="q-radio"><input type="radio" name="q32" value="No" /><span>No</span></label>
+        </div>
+        <input class="q-input" type="text" name="q32b" placeholder="If yes, what is the link?" style="margin-top:0.5rem;" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">33.</span>
+          <span class="q-question__text">Do you have written content ready for the website?</span>
+        </div>
+        <span class="q-question__note">e.g. about us text, product descriptions, team bios</span>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q33" value="Yes — fully ready" /><span>Yes — Fully Ready</span></label>
+          <label class="q-radio"><input type="radio" name="q33" value="Partially ready" /><span>Partially Ready</span></label>
+          <label class="q-radio"><input type="radio" name="q33" value="No — need help writing" /><span>No — Need Help</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">34.</span>
+          <span class="q-question__text">Do you have video content for the website? <span class="q-optional">Optional</span></span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q34" value="Yes" /><span>Yes</span></label>
+          <label class="q-radio"><input type="radio" name="q34" value="No" /><span>No</span></label>
+          <label class="q-radio"><input type="radio" name="q34" value="Not needed" /><span>Not Needed</span></label>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">35.</span>
+          <span class="q-question__text">Do you have customer testimonials or reviews you want to showcase?</span>
+        </div>
+        <div class="q-radios">
+          <label class="q-radio"><input type="radio" name="q35" value="Yes — I will share them" /><span>Yes — I'll Share Them</span></label>
+          <label class="q-radio"><input type="radio" name="q35" value="No" /><span>No</span></label>
+          <label class="q-radio"><input type="radio" name="q35" value="I want placeholder ones" /><span>Use Placeholders</span></label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">08</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Personal Brand & Portfolio</div>
+          <div class="q-section__subtitle">Your professional story</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">36.</span>
+          <span class="q-question__text">How many years have you been in this business professionally?</span>
+        </div>
+        <input class="q-input" type="text" name="q36" placeholder="e.g. 5 years" />
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">37.</span>
+          <span class="q-question__text">What are your biggest achievements or milestones?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q37" placeholder="Awards, notable clients, press features, milestones..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">38.</span>
+          <span class="q-question__text">Have you worked with any notable clients or on any notable events? <span class="q-optional">Optional</span></span>
+        </div>
+        <textarea class="q-input q-textarea" name="q38" placeholder="List any notable clients or events..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">39.</span>
+          <span class="q-question__text">Do you have any certifications or professional training? <span class="q-optional">Optional</span></span>
+        </div>
+        <textarea class="q-input q-textarea" name="q39" placeholder="List any relevant certifications or training..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">40.</span>
+          <span class="q-question__text">What do you want potential clients to feel when they see your portfolio?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q40" placeholder="Describe the impression you want to make..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">09</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Competitors & Inspiration</div>
+          <div class="q-section__subtitle">The landscape you operate in</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">41.</span>
+          <span class="q-question__text">Who are your main competitors?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q41" placeholder="List your main competitors or similar businesses..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">42.</span>
+          <span class="q-question__text">What do you like about their online presence?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q42" placeholder="What works well for them that you admire..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">43.</span>
+          <span class="q-question__text">What do you NOT want your website to look like?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q43" placeholder="What to avoid — styles, colors, layouts you dislike..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="q-section">
+      <div class="q-section__header">
+        <span class="q-section__num">10</span>
+        <div class="q-section__info">
+          <div class="q-section__title">Additional Information</div>
+          <div class="q-section__subtitle">Anything else I should know</div>
+        </div>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">44.</span>
+          <span class="q-question__text">Is there anything else you want on the website not covered above?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q44" placeholder="Any additional features, pages or ideas..."></textarea>
+      </div>
+
+      <div class="q-question">
+        <div class="q-question__label">
+          <span class="q-question__num">45.</span>
+          <span class="q-question__text">Any other information you think would help me serve you better?</span>
+        </div>
+        <textarea class="q-input q-textarea" name="q45" placeholder="Anything else you want me to know..."></textarea>
+      </div>
+
+    </div>
+
+  </form>
+
+  <!-- SUBMIT -->
+  <div class="q-submit">
+    <div class="q-submit__inner">
+      <h2 class="q-submit__title">Ready to<br><em>Submit?</em></h2>
+      <p class="q-submit__text">Once you tap the button below your answers will be compiled into a professional PDF document that you can download and send directly to me.</p>
+      <button class="btn-generate" id="generateBtn" onclick="generatePDF()">
+        Generate & Download PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- SUCCESS OVERLAY -->
+  <div class="q-success" id="successOverlay">
+    <div class="q-success__icon">✦</div>
+    <h2 class="q-success__title">Your PDF is<br><em>Ready!</em></h2>
+    <p class="q-success__text">Your questionnaire has been compiled into a professional PDF. Download it and send it to me via WhatsApp or Email so we can get started on your project.</p>
+    <button class="btn-download" id="downloadBtn">Download PDF</button>
+    <button class="btn-restart" onclick="restartForm()">Fill Again</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="q-footer">
+    <p class="q-footer__text">© 2026 Orokpo Israel · Web Developer & UI Designer · ezekielisrael1859@gmail.com</p>
+  </div>
+
+  <script>
+
+    // --- PROGRESS TRACKING ---
+    const form = document.getElementById('questionnaireForm');
+    const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const answeredCount = document.getElementById('answeredCount');
+    const totalCount = document.getElementById('totalCount');
+
+    totalCount.textContent = inputs.length;
+
+    function updateProgress() {
+      let answered = 0;
+      inputs.forEach(input => {
+        if (input.value.trim() !== '') answered++;
+      });
+      const percent = Math.round((answered / inputs.length) * 100);
+      progressFill.style.width = percent + '%';
+      progressText.textContent = percent + '% Complete';
+      answeredCount.textContent = answered;
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('input', updateProgress);
+    });
+
+    // --- GET VALUE HELPER ---
+    function getVal(name) {
+      const el = form.querySelector(`[name="${name}"]`);
+      if (!el) return 'Not answered';
+      return el.value.trim() || 'Not answered';
+    }
+
+    function getRadio(name) {
+      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : 'Not answered';
+    }
+
+    function getCheckboxes(name) {
+      const checked = form.querySelectorAll(`input[name="${name}"]:checked`);
+      if (checked.length === 0) return 'None selected';
+      return Array.from(checked).map(c => c.value).join(', ');
+    }
+
+    // --- PDF GENERATION ---
+    let pdfDoc = null;
+
+    function generatePDF() {
+      const btn = document.getElementById('generateBtn');
+      btn.textContent = 'Generating...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+        const pageW = 210;
+        const pageH = 297;
+        const margin = 20;
+        const contentW = pageW - (margin * 2);
+        let y = margin;
+
+        // Colors
+        const darkBg = [6, 10, 18];
+        const teal = [0, 180, 216];
+        const white = [255, 255, 255];
+        const silver = [180, 190, 210];
+        const lightGray = [240, 242, 245];
+
+        function checkPage(needed = 20) {
+          if (y + needed > pageH - margin) {
+            doc.addPage();
+            y = margin;
+            // Page header
+            doc.setFillColor(...darkBg);
+            doc.rect(0, 0, pageW, 12, 'F');
+            doc.setFontSize(7);
+            doc.setTextColor(...teal);
+            doc.text('OROKPO ISRAEL — CLIENT QUESTIONNAIRE', margin, 8);
+            doc.setTextColor(...silver);
+            doc.text('Web Developer & UI Designer', pageW - margin, 8, { align: 'right' });
+            y = 20;
+          }
+        }
+
+        // --- COVER PAGE ---
+        doc.setFillColor(...darkBg);
+        doc.rect(0, 0, pageW, pageH, 'F');
+
+        // Logo
+        doc.setFontSize(48);
+        doc.setTextColor(...white);
+        doc.setFont('helvetica', 'light');
+        doc.text('O', margin, 60);
+        doc.setTextColor(...teal);
+        doc.setFont('helvetica', 'bolditalic');
+        doc.text('I', margin + 28, 60);
+
+        // Title
+        doc.setFontSize(28);
+        doc.setFont('helvetica', 'light');
+        doc.setTextColor(...white);
+        doc.text('Client Project', margin, 90);
+        doc.setTextColor(...teal);
+        doc.setFont('helvetica', 'italic');
+        doc.text('Questionnaire', margin, 105);
+
+        // Divider
+        doc.setDrawColor(...teal);
+        doc.setLineWidth(0.5);
+        doc.line(margin, 115, margin + 40, 115);
+
+        // Subtitle
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...silver);
+        const coverText = 'Thank you for choosing to work with me. This document contains your completed project questionnaire. Please send this to me via WhatsApp or Email so we can get started on building your exceptional website.';
+        const coverLines = doc.splitTextToSize(coverText, contentW - 20);
+        doc.text(coverLines, margin, 128);
+
+        // Client info box
+        doc.setFillColor(10, 16, 32);
+        doc.rect(margin, 165, contentW, 50, 'F');
+        doc.setDrawColor(...teal);
+        doc.setLineWidth(0.3);
+        doc.rect(margin, 165, contentW, 50);
+
+        doc.setFontSize(7);
+        doc.setTextColor(...teal);
+        doc.text('CLIENT NAME', margin + 8, 177);
+        doc.setTextColor(...white);
+        doc.setFontSize(11);
+        doc.text(getVal('q1'), margin + 8, 185);
+
+        doc.setFontSize(7);
+        doc.setTextColor(...teal);
+        doc.text('BUSINESS NAME', margin + 8, 196);
+        doc.setTextColor(...white);
+        doc.setFontSize(11);
+        doc.text(getVal('q2'), margin + 8, 204);
+
+        // Date
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        doc.setFontSize(7);
+        doc.setTextColor(...silver);
+        doc.text('Submitted: ' + dateStr, margin + 8, 213);
+
+        // Footer cover
+        doc.setFontSize(8);
+        doc.setTextColor(...teal);
+        doc.text('OROKPO ISRAEL', margin, pageH - 20);
+        doc.setTextColor(...silver);
+        doc.text('Web Developer & UI Designer  ·  ezekielisrael1859@gmail.com', margin, pageH - 14);
+
+        // --- CONTENT PAGES ---
+        doc.addPage();
+        y = margin;
+
+        // Page header
+        doc.setFillColor(...darkBg);
+        doc.rect(0, 0, pageW, 12, 'F');
+        doc.setFontSize(7);
+        doc.setTextColor(...teal);
+        doc.text('OROKPO ISRAEL — CLIENT QUESTIONNAIRE', margin, 8);
+        doc.setTextColor(...silver);
+        doc.text('Web Developer & UI Designer', pageW - margin, 8, { align: 'right' });
+        y = 22;
+
+        const sections = [
+          { num: '01', title: 'About You & Your Business', questions: [
+            { num: '01', q: 'Full Name', a: getVal('q1') },
+            { num: '02', q: 'Business Name', a: getVal('q2') },
+            { num: '03', q: 'Type of Business', a: getVal('q3') },
+            { num: '04', q: 'Business Tagline', a: getVal('q4') },
+            { num: '05', q: 'Business Description', a: getVal('q5') },
+            { num: '06', q: 'Year Founded', a: getVal('q6') },
+            { num: '07', q: 'Location', a: getVal('q7') },
+            { num: '08', q: 'Business Hours', a: getVal('q8') },
+            { num: '09', q: 'What Makes You Unique', a: getVal('q9') },
+          ]},
+          { num: '02', title: 'Products & Services', questions: [
+            { num: '10', q: 'Products / Services Offered', a: getVal('q10') },
+            { num: '11', q: 'Custom Orders', a: getRadio('q11') + (getVal('q11b') !== 'Not answered' ? ' — ' + getVal('q11b') : '') },
+            { num: '12', q: 'Delivery', a: getRadio('q12') + (getVal('q12b') !== 'Not answered' ? ' — ' + getVal('q12b') : '') },
+            { num: '13', q: 'Price Range', a: getVal('q13') },
+            { num: '14', q: 'Occasions / Specializations', a: getCheckboxes('q14') + (getVal('q14b') !== 'Not answered' ? ', ' + getVal('q14b') : '') },
+          ]},
+          { num: '03', title: 'Target Audience', questions: [
+            { num: '15', q: 'Ideal Customers', a: getCheckboxes('q15') + (getVal('q15b') !== 'Not answered' ? ', ' + getVal('q15b') : '') },
+            { num: '16', q: 'Customer Age Group', a: getRadio('q16') },
+            { num: '17', q: 'Customer Income Level', a: getRadio('q17') },
+          ]},
+          { num: '04', title: 'Brand Identity & Design', questions: [
+            { num: '18', q: 'Existing Logo', a: getRadio('q18') },
+            { num: '19', q: 'Brand Colors', a: getVal('q19') },
+            { num: '20', q: 'Website Feeling', a: getCheckboxes('q20') + (getVal('q20b') !== 'Not answered' ? ' — ' + getVal('q20b') : '') },
+            { num: '21', q: 'Inspiration Websites', a: [getVal('q21a'), getVal('q21b'), getVal('q21c')].filter(v => v !== 'Not answered').join(' | ') || 'Not answered' },
+            { num: '22', q: 'Product Photos', a: getRadio('q22') },
+            { num: '23', q: 'Personal Photos', a: getRadio('q23') },
+          ]},
+          { num: '05', title: 'Online Presence', questions: [
+            { num: '24', q: 'Instagram', a: getVal('q24') },
+            { num: '25', q: 'Facebook', a: getVal('q25') },
+            { num: '26', q: 'TikTok', a: getVal('q26') },
+            { num: '27', q: 'WhatsApp Number', a: getVal('q27') },
+            { num: '28', q: 'Business Email', a: getVal('q28') },
+          ]},
+          { num: '06', title: 'Website Goals & Features', questions: [
+            { num: '29', q: 'Main Purpose of Website', a: getCheckboxes('q29') + (getVal('q29b') !== 'Not answered' ? ', ' + getVal('q29b') : '') },
+            { num: '30', q: 'How Customers Should Reach You', a: getCheckboxes('q30') },
+            { num: '31', q: 'Must-Have Features', a: getCheckboxes('q31') + (getVal('q31b') !== 'Not answered' ? ', ' + getVal('q31b') : '') },
+          ]},
+          { num: '07', title: 'Content & Media', questions: [
+            { num: '32', q: 'Existing Website', a: getRadio('q32') + (getVal('q32b') !== 'Not answered' ? ' — ' + getVal('q32b') : '') },
+            { num: '33', q: 'Written Content Ready', a: getRadio('q33') },
+            { num: '34', q: 'Video Content', a: getRadio('q34') },
+            { num: '35', q: 'Customer Testimonials', a: getRadio('q35') },
+          ]},
+          { num: '08', title: 'Personal Brand & Portfolio', questions: [
+            { num: '36', q: 'Years in Business', a: getVal('q36') },
+            { num: '37', q: 'Achievements & Milestones', a: getVal('q37') },
+            { num: '38', q: 'Notable Clients / Events', a: getVal('q38') },
+            { num: '39', q: 'Certifications / Training', a: getVal('q39') },
+            { num: '40', q: 'Desired Portfolio Impression', a: getVal('q40') },
+          ]},
+          { num: '09', title: 'Competitors & Inspiration', questions: [
+            { num: '41', q: 'Main Competitors', a: getVal('q41') },
+            { num: '42', q: 'What You Like About Them', a: getVal('q42') },
+            { num: '43', q: 'What To Avoid', a: getVal('q43') },
+          ]},
+          { num: '10', title: 'Additional Information', questions: [
+            { num: '44', q: 'Additional Website Requests', a: getVal('q44') },
+            { num: '45', q: 'Other Information', a: getVal('q45') },
+          ]},
+        ];
+
+        sections.forEach(section => {
+          checkPage(30);
+
+          // Section header
+          doc.setFillColor(10, 16, 32);
+          doc.rect(margin, y, contentW, 14, 'F');
+          doc.setDrawColor(...teal);
+          doc.setLineWidth(0.3);
+          doc.line(margin, y + 14, margin + contentW, y + 14);
+
+          doc.setFontSize(8);
+          doc.setTextColor(...teal);
+          doc.setFont('helvetica', 'normal');
+          doc.text(section.num, margin + 4, y + 9);
+
+          doc.setFontSize(10);
+          doc.setTextColor(...white);
+          doc.setFont('helvetica', 'bold');
+          doc.text(section.title.toUpperCase(), margin + 16, y + 9);
+
+          y += 20;
+
+          section.questions.forEach(item => {
+            checkPage(25);
+
+            // Question
+            doc.setFontSize(7);
+            doc.setTextColor(...teal);
+            doc.setFont('helvetica', 'bold');
+            doc.text(item.num + '.', margin, y + 4);
+
+            doc.setTextColor(120, 130, 150);
+            doc.setFont('helvetica', 'normal');
+            doc.text(item.q, margin + 8, y + 4);
+
+            y += 8;
+
+            // Answer box
+            const answerText = item.a || 'Not answered';
+            const lines = doc.splitTextToSize(answerText, contentW - 12);
+            const boxH = Math.max(10, lines.length * 4.5 + 5);
+
+            checkPage(boxH + 5);
+
+            doc.setFillColor(...lightGray);
+            doc.rect(margin, y, contentW, boxH, 'F');
+            doc.setDrawColor(200, 210, 225);
+            doc.setLineWidth(0.2);
+            doc.rect(margin, y, contentW, boxH);
+
+            // Teal left border
+            doc.setFillColor(...teal);
+            doc.rect(margin, y, 2, boxH, 'F');
+
+            doc.setFontSize(8.5);
+            doc.setTextColor(30, 40, 60);
+            doc.setFont('helvetica', 'normal');
+            doc.text(lines, margin + 6, y + 6);
+
+            y += boxH + 6;
+          });
+
+          y += 8;
+        });
+
+        // --- FINAL PAGE ---
+        checkPage(80);
+
+        doc.setFillColor(...darkBg);
+        doc.rect(margin - 5, y, contentW + 10, 70, 'F');
+
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'light');
+        doc.setTextColor(...white);
+        doc.text('Thank you for', margin + 5, y + 18);
+        doc.setTextColor(...teal);
+        doc.setFont('helvetica', 'italic');
+        doc.text('completing this.', margin + 5, y + 28);
+
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...silver);
+        const thankText = 'Please send this PDF to me via WhatsApp or Email. I will review your answers and get back to you within 24-48 hours with a project proposal.';
+        const thankLines = doc.splitTextToSize(thankText, contentW - 10);
+        doc.text(thankLines, margin + 5, y + 40);
+
+        doc.setFontSize(8);
+        doc.setTextColor(...teal);
+        doc.text('ezekielisrael1859@gmail.com', margin + 5, y + 58);
+
+        pdfDoc = doc;
+
+        // Show success
+        document.getElementById('successOverlay').classList.add('is-visible');
+
+      }, 500);
+    }
+
+    function downloadPDF() {
+      if (pdfDoc) {
+        const clientName = document.querySelector('[name="q1"]').value.trim() || 'Client';
+        const bizName = document.querySelector('[name="q2"]').value.trim() || 'Business';
+        pdfDoc.save(`OI-Questionnaire-${clientName}-${bizName}.pdf`);
+      }
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+
+    function restartForm() {
+      document.getElementById('successOverlay').classList.remove('is-visible');
+      document.getElementById('generateBtn').textContent = 'Generate & Download PDF';
+      document.getElementById('generateBtn').disabled = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+  </script>
+
+</body>
+</html>
